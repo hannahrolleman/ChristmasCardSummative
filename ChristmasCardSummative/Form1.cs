@@ -8,8 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.Media;
 
 namespace ChristmasCardSummative
+    //Hannah Rolleman, September 27 
+    //the following code is an interactive christmas card that makes it snow, then flash "Merry Christmas" and plays jingle bells
 {
     public partial class Form1 : Form
     {
@@ -17,15 +20,17 @@ namespace ChristmasCardSummative
         {
             InitializeComponent();
         }
-
         private void Form1_Click(object sender, EventArgs e)
         {
+            //changes background image to create the sky
             BackgroundImage = null;
             Refresh();
 
+            //creates graphics for the snow 
             Graphics formGraphics = this.CreateGraphics();
             SolidBrush drawBrush = new SolidBrush(Color.White);
 
+            //makes it snow
             BackColor = Color.CadetBlue;
             formGraphics.FillEllipse(drawBrush, 223, 125, 15, 15);
             formGraphics.FillEllipse(drawBrush, 156, 167, 15, 15);
@@ -237,13 +242,44 @@ namespace ChristmasCardSummative
             Thread.Sleep(1000);
             formGraphics.Clear(Color.CadetBlue);
 
+            //plays jingle bells
+            SoundPlayer player = new SoundPlayer(Properties.Resources.bells);
+            player.Play();
+
+            //creates graphics for the text
             Graphics fg = this.CreateGraphics();
             Font drawFont = new Font("Arial", 20, FontStyle.Bold);
             drawBrush.Color = Color.Red;
 
-            fg.DrawString("Merry Christmas", drawFont, drawBrush, 50, 40);
+            //Flashes the text
+            fg.DrawString("Merry Christmas!!", drawFont, drawBrush, 75, 100);
 
+            Thread.Sleep(1000);
+            drawBrush.Color = Color.Green;
 
+            fg.DrawString("Merry Christmas!!", drawFont, drawBrush, 75, 100);
+
+            Thread.Sleep(1000);
+            drawBrush.Color = Color.White;
+
+            fg.DrawString("Merry Christmas!!", drawFont, drawBrush, 75, 100);
+
+            Thread.Sleep(1000);
+            drawBrush.Color = Color.Red;
+
+            fg.DrawString("Merry Christmas!!", drawFont, drawBrush, 75, 100);
+
+            Thread.Sleep(1000);
+            drawBrush.Color = Color.Green;
+
+            fg.DrawString("Merry Christmas!!", drawFont, drawBrush, 75, 100);
+
+            Thread.Sleep(1000);
+            drawBrush.Color = Color.White;
+
+            //plays "Merry Christmas"
+            SoundPlayer merry = new SoundPlayer(Properties.Resources.christmas);
+            merry.Play();
         }
     }
     
